@@ -112,27 +112,27 @@
             margin: 1rem 0;
         }
 
-        .price-info-grid {
+        .basePrice-info-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1rem;
             margin: 1.5rem 0;
         }
 
-        .price-info-item {
+        .basePrice-info-item {
             background: var(--light-gray);
             border-radius: 8px;
             padding: 1rem;
             text-align: center;
         }
 
-        .price-info-label {
+        .basePrice-info-label {
             font-size: 0.85rem;
             color: var(--gray);
             margin-bottom: 0.5rem;
         }
 
-        .price-info-value {
+        .basePrice-info-value {
             font-weight: 600;
             font-size: 1.1rem;
         }
@@ -433,18 +433,18 @@
 
                         <div class="current-bid">$899.00</div>
 
-                        <div class="price-info-grid">
-                            <div class="price-info-item">
-                                <div class="price-info-label">Starting Price</div>
-                                <div class="price-info-value">$799.00</div>
+                        <div class="basePrice-info-grid">
+                            <div class="basePrice-info-item">
+                                <div class="basePrice-info-label">Starting Price</div>
+                                <div class="basePrice-info-value">$799.00</div>
                             </div>
-                            <div class="price-info-item">
-                                <div class="price-info-label">Bid Increment</div>
-                                <div class="price-info-value">$10.00</div>
+                            <div class="basePrice-info-item">
+                                <div class="basePrice-info-label">Bid Increment</div>
+                                <div class="basePrice-info-value">$10.00</div>
                             </div>
-                            <div class="price-info-item">
-                                <div class="price-info-label">Buy It Now</div>
-                                <div class="price-info-value">$1,099.00</div>
+                            <div class="basePrice-info-item">
+                                <div class="basePrice-info-label">Buy It Now</div>
+                                <div class="basePrice-info-value">$1,099.00</div>
                             </div>
                         </div>
 

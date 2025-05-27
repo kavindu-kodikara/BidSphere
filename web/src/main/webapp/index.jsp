@@ -84,7 +84,7 @@
             background-color: #3a5bd9;
         }
 
-        .price {
+        .basePrice {
             color: var(--primary-color);
             font-weight: 700;
             font-size: 1.2rem;
@@ -129,7 +129,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="loadHome()">
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <div class="container">
@@ -198,106 +198,34 @@
     </div>
 
     <!-- Product Grid -->
-    <div class="row">
+    <div class="row" id="container">
+
         <!-- Product 1 -->
-        <div class="col-md-3">
+        <div class="col-md-3" id="product">
             <div class="card">
                 <div class="position-relative">
-                    <img src="https://i5.walmartimages.com/seo/Open-Box-Apple-iPhone-13-Pro-Max-AP-2484M-1024GB-Blue-US-Model-Factory-Unlocked-Cell-Phone_6ba1f90b-3b76-4e73-bb5c-8e353d988df0.de5842bcd17198be175ce2c6486b140c.jpeg" class="card-img-top" alt="Product Image">
+                    <img id="pImg" src="https://i5.walmartimages.com/seo/Open-Box-Apple-iPhone-13-Pro-Max-AP-2484M-1024GB-Blue-US-Model-Factory-Unlocked-Cell-Phone_6ba1f90b-3b76-4e73-bb5c-8e353d988df0.de5842bcd17198be175ce2c6486b140c.jpeg" class="card-img-top" alt="Product Image">
                     <span class="badge badge-time position-absolute top-0 end-0 m-2">Ends in <span class="countdown" data-end="2023-12-31T23:59:59">2d 5h 12m</span></span>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Apple iPhone 13 Pro Max</h5>
-                    <p class="card-text text-black-50">Brand new sealed iPhone 13 Pro Max 256GB Sierra Blue with warranty.</p>
+                    <h5 class="card-title" id="pTitle">Apple iPhone 13 Pro Max</h5>
+                    <p class="card-text text-black-50"  id="pDescription">Brand new sealed iPhone 13 Pro Max 256GB Sierra Blue with warranty.</p>
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <div>
                             <span class="text-muted">Current Bid:</span>
-                            <span class="price">$899</span>
+                            <span class="basePrice" id="pPrice">$899</span>
                         </div>
                         <div>
                             <span class="text-muted">Bids:</span>
-                            <span class="fw-bold">24</span>
+                            <span class="fw-bold"  id="pbid">24</span>
                         </div>
                     </div>
-                    <a href="product.html" class="btn btn-primary fw-bold w-100">Place Bid</a>
+                    <a id="pBtn"  class="btn btn-primary fw-bold w-100">Place Bid</a>
                 </div>
             </div>
         </div>
 
-        <!-- Product 2 -->
-        <div class="col-md-3">
-            <div class="card">
-                <div class="position-relative">
-                    <img src="https://diamondseast.com/cdn/shop/files/IMG_6384.jpg?v=1724780733" class="card-img-top" alt="Product Image">
-                    <span class="badge badge-time position-absolute top-0 end-0 m-2">Ends in <span class="countdown" data-end="2023-12-25T18:00:00">1d 8h 45m</span></span>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">Rolex Submariner</h5>
-                    <p class="card-text text-black-50">Vintage Rolex Submariner 16610 from 2003, excellent condition.</p>
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div>
-                            <span class="text-muted">Current Bid:</span>
-                            <span class="price">$7,500</span>
-                        </div>
-                        <div>
-                            <span class="text-muted">Bids:</span>
-                            <span class="fw-bold">12</span>
-                        </div>
-                    </div>
-                    <a href="product.html" class="btn btn-primary fw-bold w-100">Place Bid</a>
-                </div>
-            </div>
-        </div>
 
-        <!-- Product 3 -->
-        <div class="col-md-3">
-            <div class="card">
-                <div class="position-relative">
-                    <img src="https://georgemillerart.com/cdn/shop/products/il_fullxfull.2240815375_9pzt.jpg?v=1699571350&width=1946" class="card-img-top" alt="Product Image">
-                    <span class="badge badge-time position-absolute top-0 end-0 m-2">Ends in <span class="countdown" data-end="2023-12-28T12:00:00">4d 2h 30m</span></span>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">Original Landscape Painting</h5>
-                    <p class="card-text text-black-50">Beautiful oil painting by contemporary artist, 24x36 inches.</p>
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div>
-                            <span class="text-muted">Current Bid:</span>
-                            <span class="price">$450</span>
-                        </div>
-                        <div>
-                            <span class="text-muted">Bids:</span>
-                            <span class="fw-bold">8</span>
-                        </div>
-                    </div>
-                    <a href="product.html" class="btn btn-primary fw-bold w-100">Place Bid</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Product 4 -->
-        <div class="col-md-3">
-            <div class="card">
-                <div class="position-relative">
-                    <img src="https://www.dpreview.com/files/p/articles/7257804807/DSC09703.acr.jpeg" class="card-img-top" alt="Product Image">
-                    <span class="badge badge-time position-absolute top-0 end-0 m-2">Ends in <span class="countdown" data-end="2023-12-22T15:30:00">12h 15m</span></span>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">Sony A7 IV Mirrorless Camera</h5>
-                    <p class="card-text text-black-50">Like new condition with 3 lenses and accessories included.</p>
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div>
-                            <span class="text-muted">Current Bid:</span>
-                            <span class="price">$2,100</span>
-                        </div>
-                        <div>
-                            <span class="text-muted">Bids:</span>
-                            <span class="fw-bold">18</span>
-                        </div>
-                    </div>
-                    <a href="product.html" class="btn btn-primary fw-bold w-100">Place Bid</a>
-                </div>
-            </div>
-        </div>
 
 
     <!-- Pagination -->
@@ -326,7 +254,7 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <div >
                     <div class="mb-3">
                         <label for="loginEmail" class="form-label">Email address</label>
                         <input type="email" class="form-control" id="loginEmail" placeholder="name@example.com">
@@ -339,7 +267,7 @@
                         <input type="checkbox" class="form-check-input" id="rememberMe">
                         <label class="form-check-label" for="rememberMe">Remember me</label>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
+                    <button onclick="login()" class="btn btn-primary w-100 mb-3">Login</button>
                     <div class="text-center mb-3">
                         <a href="#" class="text-decoration-none">Forgot password?</a>
                     </div>
@@ -347,12 +275,12 @@
                     <div class="text-center">
                         <p class="mb-0">Don't have an account? <a href="#" class="text-decoration-none fw-bold">Register here</a></p>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
+<script src="js/home.js"></script>
 <!-- Bootstrap JS Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Countdown Timer Script -->
