@@ -1,7 +1,9 @@
 package com.kv.ee.core.modle;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Product implements Serializable {
     private int id;
@@ -11,16 +13,27 @@ public class Product implements Serializable {
     private String image;
     private Date time;
 
+    private ArrayList<Bid> bidHistory;
+
     public Product() {
     }
 
-    public Product(int id, String name, String description, double basePrice, String image, Date time) {
+    public Product(int id, String name, String description, double basePrice, String image, Date time, ArrayList<Bid> bidHistory) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.basePrice = basePrice;
         this.image = image;
         this.time = time;
+        this.bidHistory = bidHistory;
+    }
+
+    public ArrayList<Bid> getBidHistory() {
+        return bidHistory;
+    }
+
+    public void setBidHistory(ArrayList<Bid> bidHistory) {
+        this.bidHistory = bidHistory;
     }
 
     public Date getTime() {

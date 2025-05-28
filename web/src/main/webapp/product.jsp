@@ -373,7 +373,7 @@
 
     </style>
 </head>
-<body>
+<body onload="loadHome()">
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
@@ -399,9 +399,6 @@
                 <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal">
                     <i class="fas fa-sign-in-alt me-1"></i> Login
                 </button>
-                <button class="btn btn-primary">
-                    <i class="fas fa-user-plus me-1"></i> Register
-                </button>
             </div>
         </div>
     </div>
@@ -417,34 +414,35 @@
                 <!-- Product Details -->
                 <div class="product-card">
                     <div class="product-image-container">
-                        <img src="https://i5.walmartimages.com/seo/Open-Box-Apple-iPhone-13-Pro-Max-AP-2484M-1024GB-Blue-US-Model-Factory-Unlocked-Cell-Phone_6ba1f90b-3b76-4e73-bb5c-8e353d988df0.de5842bcd17198be175ce2c6486b140c.jpeg" class="product-image" alt="Apple iPhone 13 Pro Max">
+                        <img id="pImg" src="" class="img-fluid rounded border" style="height: 330px;" alt="Product Image">
+
                     </div>
                     <div class="product-details">
                         <div class="auction-timer">
                             <i class="fas fa-clock me-2"></i>
-                            <span>Ends in 2d 5h 12m</span>
+                            <span id="pTime">Ends in 12m</span>
                         </div>
-                        <h2>Apple iPhone 13 Pro Max 256GB</h2>
+                        <h2 id="pTitle">Apple iPhone 13 Pro Max 256GB</h2>
                         <div class="d-flex align-items-center my-3">
                             <span class="text-muted me-3">Seller: TechDealsOfficial</span>
                             <span class="badge bg-success">New</span>
                         </div>
-                        <p class="mb-4">Brand new sealed iPhone 13 Pro Max in Sierra Blue with 1-year Apple warranty included. Never opened, original packaging with all accessories.</p>
+                        <p class="mb-4" id="pDescr">Brand new sealed iPhone 13 Pro Max in Sierra Blue with 1-year Apple warranty included. Never opened, original packaging with all accessories.</p>
 
-                        <div class="current-bid">$899.00</div>
+                        <div class="current-bid" id="pPrice">$899.00</div>
 
                         <div class="basePrice-info-grid">
                             <div class="basePrice-info-item">
                                 <div class="basePrice-info-label">Starting Price</div>
-                                <div class="basePrice-info-value">$799.00</div>
+                                <div class="basePrice-info-value" id="pBasePrice">$799.00</div>
                             </div>
                             <div class="basePrice-info-item">
                                 <div class="basePrice-info-label">Bid Increment</div>
                                 <div class="basePrice-info-value">$10.00</div>
                             </div>
                             <div class="basePrice-info-item">
-                                <div class="basePrice-info-label">Buy It Now</div>
-                                <div class="basePrice-info-value">$1,099.00</div>
+                                <div class="basePrice-info-label">Current Bid</div>
+                                <div class="basePrice-info-value" id="pCBid">$1,099.00</div>
                             </div>
                         </div>
 
@@ -452,7 +450,7 @@
                             <i class="fas fa-eye me-2"></i>
                             <span class="me-3">12 people watching</span>
                             <i class="fas fa-gavel me-2"></i>
-                            <span>24 bids placed</span>
+                            <span id="pBidCount1">24 bids placed</span>
                         </div>
                     </div>
                 </div>
@@ -523,33 +521,24 @@
                         <div class="text-center mb-4">
                             <span class="text-muted">Current Bid:</span>
                             <div class="current-bid">$899.00</div>
-                            <span class="text-muted">24 bids placed</span>
+                            <span class="text-muted"><i class="fas fa-gavel "></i> <span id="pBidCount2">24 bids placed</span></span>
                         </div>
 
                         <div class="mb-4">
                             <div class="d-flex justify-content-between mb-2">
                                 <span class="text-muted">Starting Price:</span>
-                                <span>$799.00</span>
+                                <span id="pBasePrice2">$799.00</span>
                             </div>
                             <div class="d-flex justify-content-between mb-2">
                                 <span class="text-muted">Bid Increment:</span>
                                 <span>$10.00</span>
                             </div>
-                            <div class="d-flex justify-content-between">
-                                <span class="text-muted">Buy It Now:</span>
-                                <span>$1,099.00</span>
-                            </div>
                         </div>
 
-                        <div class="autobid-toggle">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="autobidToggle" checked>
-                                <label class="form-check-label" for="autobidToggle">Enable Auto-Bid</label>
-                            </div>
-                            <span class="autobid-badge">PRO</span>
-                        </div>
+
 
                         <div class="bid-form mb-4">
+                            <label for="maxBid" class="form-label">Place your bid</label>
                             <div class="input-group">
                                 <span class="input-group-text">$</span>
                                 <input type="number" class="form-control" placeholder="Enter your bid amount" id="bidAmount" min="909" step="10" value="909">
@@ -557,8 +546,18 @@
                             </div>
                             <small class="text-muted">Next minimum bid: $909.00</small>
 
+                            <button class="btn btn-primary w-100 mb-3 mt-1">
+                                <i class="fas fa-gavel me-2"></i> Place Bid
+                            </button>
+
                             <div class="mt-3" id="autobidSection">
-                                <label for="maxBid" class="form-label">Set your maximum bid</label>
+                                <div class="autobid-toggle">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="autobidToggle" >
+                                        <label class="form-check-label" for="autobidToggle">Enable Auto-Bid</label>
+                                    </div>
+                                    <span class="autobid-badge">PRO</span>
+                                </div>
                                 <div class="input-group mb-2">
                                     <span class="input-group-text">$</span>
                                     <input type="number" class="form-control" placeholder="Your max bid" id="maxBid" min="919" step="10" value="1000">
@@ -568,18 +567,7 @@
                             </div>
                         </div>
 
-                        <button class="btn btn-bid w-100 mb-3">
-                            <i class="fas fa-gavel me-2"></i> Place Bid
-                        </button>
-                        <button class="btn btn-outline-bid w-100">
-                            <i class="fas fa-shopping-cart me-2"></i> Buy It Now
-                        </button>
 
-                        <div class="text-center mt-3">
-                            <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#loginModal">
-                                <i class="fas fa-sign-in-alt me-1"></i> Login to bid
-                            </a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -599,7 +587,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <p class="mb-0">&copy; 2023 BidSphere. All rights reserved.</p>
+                <p class="mb-0">&copy; 2025 BidSphere. All rights reserved.</p>
             </div>
             <div class="col-md-6 text-md-end">
                 <a href="#" class="text-white me-3">Privacy Policy</a>
@@ -615,10 +603,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="loginModalLabel">Login to BidSphere</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <div >
                     <div class="mb-3">
                         <label for="loginEmail" class="form-label">Email address</label>
                         <input type="email" class="form-control" id="loginEmail" placeholder="name@example.com">
@@ -631,15 +619,21 @@
                         <input type="checkbox" class="form-check-input" id="rememberMe">
                         <label class="form-check-label" for="rememberMe">Remember me</label>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
+                    <button onclick="login()" class="btn btn-primary w-100 mb-3">Login</button>
+                    <div class="text-center mb-3">
+                        <a href="#" class="text-decoration-none">Forgot password?</a>
+                    </div>
+                    <hr>
                     <div class="text-center">
                         <p class="mb-0">Don't have an account? <a href="#" class="text-decoration-none fw-bold">Register here</a></p>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<script src="js/home.js"></script>
+<script src="js/product.js"></script>
 
 <!-- Bootstrap JS Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
