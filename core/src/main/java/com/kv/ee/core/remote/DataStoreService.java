@@ -11,4 +11,5 @@ public interface DataStoreService {
     Map<Integer, User> getUserMap();
     Map<Integer, Product> getProductMap();
     Integer getUserId(String email,String password);
+    void updateProductMap(Product product);
 }

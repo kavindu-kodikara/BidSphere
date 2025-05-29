@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Custom CSS -->
     <style>
         :root {
@@ -373,7 +374,7 @@
 
     </style>
 </head>
-<body onload="loadHome()">
+<body onload="loadHome(); startWebSocket();">
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
@@ -396,9 +397,26 @@
                 </li>
             </ul>
             <div class="d-flex">
+
+                <%
+                    Integer uid = (Integer) request.getSession().getAttribute("userId");
+                    if (uid == null) {
+                %>
                 <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal">
                     <i class="fas fa-sign-in-alt me-1"></i> Login
                 </button>
+                <%
+                } else {
+                %>
+                <button class="btn btn-outline-light me-2" onclick="logout();">
+                   Logout
+                </button>
+                <%
+                    }
+                %>
+
+
+
             </div>
         </div>
     </div>
@@ -442,7 +460,7 @@
                             </div>
                             <div class="basePrice-info-item">
                                 <div class="basePrice-info-label">Current Bid</div>
-                                <div class="basePrice-info-value" id="pCBid">$1,099.00</div>
+                                <div class="basePrice-info-value" id="pCBid">$0.00</div>
                             </div>
                         </div>
 
@@ -462,55 +480,15 @@
                     <div class="history-header">
                         <h5>Bidding Activity</h5>
                     </div>
-                    <div class="bid-history">
-                        <div class="bid-item">
-                            <div class="d-flex justify-content-between">
-                                <span><span class="bid-user">Bidder123</span> bid <span class="bid-amount">$899.00</span></span>
-                                <span class="bid-time">just now</span>
+                    <div class="bid-history" id="bidContainer">
+
+                        <div class="bid-item d-none" id="idItem">
+                            <div class="d-flex justify-content-between" >
+                                <span><span class="bid-user" id="bidName">Bidder123</span> bid <span class="bid-amount" id="bidPrice">$899.00</span></span>
+                                <span class="bid-time" id="bidTime">just now</span>
                             </div>
                         </div>
-                        <div class="bid-item">
-                            <div class="d-flex justify-content-between">
-                                <span><span class="bid-user">TechLover</span> bid <span class="bid-amount">$889.00</span></span>
-                                <span class="bid-time">2 minutes ago</span>
-                            </div>
-                        </div>
-                        <div class="bid-item">
-                            <div class="d-flex justify-content-between">
-                                <span><span class="bid-user">Bidder123</span> bid <span class="bid-amount">$879.00</span></span>
-                                <span class="bid-time">5 minutes ago</span>
-                            </div>
-                        </div>
-                        <div class="bid-item">
-                            <div class="d-flex justify-content-between">
-                                <span><span class="bid-user">PhoneFanatic</span> bid <span class="bid-amount">$869.00</span></span>
-                                <span class="bid-time">12 minutes ago</span>
-                            </div>
-                        </div>
-                        <div class="bid-item">
-                            <div class="d-flex justify-content-between">
-                                <span><span class="bid-user">Bidder123</span> bid <span class="bid-amount">$859.00</span></span>
-                                <span class="bid-time">18 minutes ago</span>
-                            </div>
-                        </div>
-                        <div class="bid-item">
-                            <div class="d-flex justify-content-between">
-                                <span><span class="bid-user">GadgetGuru</span> bid <span class="bid-amount">$849.00</span></span>
-                                <span class="bid-time">25 minutes ago</span>
-                            </div>
-                        </div>
-                        <div class="bid-item">
-                            <div class="d-flex justify-content-between">
-                                <span><span class="bid-user">MobileExpert</span> bid <span class="bid-amount">$839.00</span></span>
-                                <span class="bid-time">42 minutes ago</span>
-                            </div>
-                        </div>
-                        <div class="bid-item">
-                            <div class="d-flex justify-content-between">
-                                <span><span class="bid-user">TechEnthusiast</span> bid <span class="bid-amount">$829.00</span></span>
-                                <span class="bid-time">1 hour ago</span>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
 
@@ -520,7 +498,7 @@
                     <div class="bid-section" >
                         <div class="text-center mb-4">
                             <span class="text-muted">Current Bid:</span>
-                            <div class="current-bid">$899.00</div>
+                            <div class="current-bid" id="cBid2">$0.00</div>
                             <span class="text-muted"><i class="fas fa-gavel "></i> <span id="pBidCount2">24 bids placed</span></span>
                         </div>
 
@@ -541,12 +519,12 @@
                             <label for="maxBid" class="form-label">Place your bid</label>
                             <div class="input-group">
                                 <span class="input-group-text">$</span>
-                                <input type="number" class="form-control" placeholder="Enter your bid amount" id="bidAmount" min="909" step="10" value="909">
+                                <input type="number" class="form-control" placeholder="Enter your bid amount" id="bidAmount"  step="10" value="0">
                                 <span class="input-group-text">.00</span>
                             </div>
-                            <small class="text-muted">Next minimum bid: $909.00</small>
+                            <small class="text-muted" id="nextBid">Next minimum bid: $909.00</small>
 
-                            <button class="btn btn-primary w-100 mb-3 mt-1">
+                            <button onclick="placeBid()" class="btn btn-primary w-100 mb-3 mt-1">
                                 <i class="fas fa-gavel me-2"></i> Place Bid
                             </button>
 

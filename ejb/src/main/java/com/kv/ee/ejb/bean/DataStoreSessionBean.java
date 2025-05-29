@@ -92,4 +92,9 @@ public class DataStoreSessionBean implements DataStoreService {
         }
         return 0;
     }
+
+    @Override
+    public void updateProductMap(Product product) {
+        productMap.replace(product.getId(),product);
+    }
 }

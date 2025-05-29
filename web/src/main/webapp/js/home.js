@@ -38,10 +38,18 @@ async function login() {
     const password = document.getElementById("loginPassword").value;
 
     if(email == ""){
-        alert("Please enter valid email");
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Please enter valid email!",
+        });
         return;
     }else if(password == ""){
-        alert("Please enter your password");
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Please enter your password!",
+        });
         return;
     }
 
@@ -65,7 +73,36 @@ async function login() {
         if(data){
             window.location.reload();
         }else{
-            alert("Invalid login credentials");
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Invalid login credentials!",
+            });
+        }
+    }
+}
+
+async function logout() {
+
+    const response = await fetch("http://localhost:8080/logout", {
+        method: "POST",
+        headers:{
+            "Content-Type": "application/json"
+        }
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+
+        if(data){
+            window.location.reload();
+        }else{
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Invalid login credentials!",
+            });
         }
     }
 }

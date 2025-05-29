@@ -8,17 +8,25 @@ public class Bid implements Serializable {
     private double price;
     private Date time;
     private User user;
+    private Integer productId;
 
     public Bid() {
     }
 
-    public Bid(double price, Date time, User user) {
-
+    public Bid(double price, Date time, User user, Integer productId) {
         this.price = price;
         this.time = time;
         this.user = user;
+        this.productId = productId;
     }
 
+    public Integer getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
+    }
 
     public double getPrice() {
         return price;

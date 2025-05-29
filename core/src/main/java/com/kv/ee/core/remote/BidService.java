@@ -4,5 +4,5 @@ import jakarta.ejb.Remote;
 
 @Remote
 public interface BidService {
-    void sendBid(Integer uid,Integer pid,double price);
+    boolean placeBid(Integer productId, Integer userId, double amount);
 }
