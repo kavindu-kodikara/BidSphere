@@ -50,7 +50,7 @@ public class BidReceiverMDB implements MessageListener {
 
                 for (AutoBidConfig config : Validate.sortBidConfigs(autoBidders)) {
 
-                    if (bid.getUser().getId() == config.getUserId()) continue; // skip self
+                    if (bid.getUser().getId() == config.getUserId()) continue;
 
                     System.out.println("bidder : "+bid.getUser().getId()+" , user : "+config.getUserId());
 
@@ -58,7 +58,7 @@ public class BidReceiverMDB implements MessageListener {
 
                     if (nextBid <= config.getMaxBid()) {
                         bidService.placeBid(bid.getProductId(), config.getUserId(), nextBid);
-                        break; // only allow one auto-bid at a time (chain reaction via JMS)
+                        break;
                     }
                 }
 
