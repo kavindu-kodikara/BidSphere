@@ -3,6 +3,20 @@ let productPrice;
 let productEndTime;
 let totBidCount;
 let currentBid;
+
+let maxBidAmount;
+let isAutoBid = false;
+
+const checkbox = document.getElementById('autobidToggle');
+
+checkbox.addEventListener('change', function() {
+    if (checkbox.checked) {
+        startAutoBid();
+    } else {
+        alert("unChecked");
+    }
+});
+
 async function loadHome() {
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -107,8 +121,6 @@ function startCountdown(endTimeStr) {
     updateCountdown();
 }
 
-
-
 function startWebSocket() {
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -156,6 +168,24 @@ function startWebSocket() {
         document.getElementById("pBidCount2").innerHTML = totBidCount+1 + " bids placed";
 
         totBidCount = totBidCount+1;
+
+        if(isAutoBid){
+            if(data.price >= maxBidAmount){
+                Swal.fire({
+                    icon: "info",
+                    title: "AutoBid Ended!",
+                    text: "Your max bid amount exceeded!",
+                });
+
+                isAutoBid = false;
+                maxBidAmount = "";
+                checkbox.checked = false;
+
+            }
+        }else{
+            let price = data.price+50
+            document.getElementById("maxBid").value = price;
+        }
 
     };
 
@@ -252,7 +282,6 @@ function convertToShortTime(str) {
     });
 }
 
-
 function scrollToBottom() {
     const container = document.getElementById('bidContainer');
     container.scrollTop = container.scrollHeight;
@@ -262,5 +291,78 @@ function isTimePassed(timeStr) {
     const givenTime = new Date(timeStr);
     const now = new Date();
     return givenTime < now;
+}
+
+async function startAutoBid(){
+    let amount = document.getElementById("maxBid").value;
+    const urlParams = new URLSearchParams(window.location.search);
+
+    if(isTimePassed(productEndTime)){
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Auction ended!",
+        });
+        checkbox.checked = false;
+        return;
+    }
+
+    if(amount == ""){
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Please enter a max value!",
+        });
+        checkbox.checked = false;
+        return;
+    }
+
+        let next = currentBid+50
+
+    if(amount < next ){
+
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Max amount should be at least $"+next+".00",
+        });
+        checkbox.checked = false;
+        return;
+    }
+
+
+    const reqData = {
+        pid : urlParams.get('id'),
+        amount:amount,
+    }
+
+    const response = await fetch("http://localhost:8080/autoBid", {
+        method: "POST",
+        body: JSON.stringify(reqData),
+        headers: {
+            "Content-Type": "application/json",
+        }
+    });
+
+    if(response.ok) {
+        const data = await response.json();
+        console.log(data);
+
+        if(data.isSuccess){
+            maxBidAmount = amount;
+            isAutoBid = true;
+            Swal.fire({
+                title: "Success",
+                text: "Auto bid started!",
+                icon: "success"
+            });
+        }else{
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: data.msg+"!",
+            });
+        }
+    }
 }
 

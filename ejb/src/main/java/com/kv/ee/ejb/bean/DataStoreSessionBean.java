@@ -1,5 +1,6 @@
 package com.kv.ee.ejb.bean;
 
+import com.kv.ee.core.modle.AutoBidConfig;
 import com.kv.ee.core.modle.Bid;
 import com.kv.ee.core.modle.Product;
 import com.kv.ee.core.modle.User;
@@ -8,10 +9,8 @@ import jakarta.annotation.PostConstruct;
 import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Singleton
 @Startup
@@ -19,11 +18,13 @@ public class DataStoreSessionBean implements DataStoreService {
 
     private Map<Integer,User> userMap;
     private Map<Integer,Product> productMap;
+    private ConcurrentHashMap<Integer, List<AutoBidConfig>> autoBidMap;
 
     @PostConstruct
     public void init() {
         userMap = new HashMap<>();
         productMap = new HashMap<>();
+        autoBidMap = new ConcurrentHashMap<>();
 
         Date now = new Date();
 
@@ -35,7 +36,7 @@ public class DataStoreSessionBean implements DataStoreService {
                 1,
                 "Apple iPhone 13 Pro Max",
                 "Brand new sealed iPhone 13 Pro Max 256GB Sierra Blue with warranty.",
-                899.00,
+                890.00,
                 "https://i5.walmartimages.com/seo/Open-Box-Apple-iPhone-13-Pro-Max-AP-2484M-1024GB-Blue-US-Model-Factory-Unlocked-Cell-Phone_6ba1f90b-3b76-4e73-bb5c-8e353d988df0.de5842bcd17198be175ce2c6486b140c.jpeg",
                 new Date(now.getTime() + 20 * 60 * 1000),
                 new ArrayList<Bid>()
@@ -96,5 +97,15 @@ public class DataStoreSessionBean implements DataStoreService {
     @Override
     public void updateProductMap(Product product) {
         productMap.replace(product.getId(),product);
+    }
+
+    @Override
+    public void registerAutoBid(AutoBidConfig config) {
+        autoBidMap.computeIfAbsent(config.getProductId(), k -> new ArrayList<>()).add(config);
+    }
+
+    @Override
+    public List<AutoBidConfig> getAutoBiddersForProduct(int productId) {
+        return autoBidMap.getOrDefault(productId, new ArrayList<>());
     }
 }

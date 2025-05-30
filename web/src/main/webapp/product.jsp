@@ -538,7 +538,7 @@
                                 </div>
                                 <div class="input-group mb-2">
                                     <span class="input-group-text">$</span>
-                                    <input type="number" class="form-control" placeholder="Your max bid" id="maxBid" min="919" step="10" value="1000">
+                                    <input type="number" class="form-control" placeholder="Your max bid" id="maxBid"  step="10" >
                                     <span class="input-group-text">.00</span>
                                 </div>
                                 <small class="text-muted">We'll automatically bid for you up to this amount</small>
