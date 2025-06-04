@@ -24,6 +24,7 @@ async function loadHome() {
                 pClone.querySelector("#pTitle").innerHTML = item.name;
                 pClone.querySelector("#pPrice").innerHTML = "$"+item.basePrice;
                 pClone.querySelector("#pBtn").href = "http://localhost:8080/product.jsp?id=" + item.id;
+                pClone.querySelector("#pbid").innerHTML = item.bidHistory.length;
 
                 container.appendChild(pClone);
             });

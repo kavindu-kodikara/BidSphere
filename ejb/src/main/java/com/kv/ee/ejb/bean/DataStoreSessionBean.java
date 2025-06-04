@@ -108,4 +108,15 @@ public class DataStoreSessionBean implements DataStoreService {
     public List<AutoBidConfig> getAutoBiddersForProduct(int productId) {
         return autoBidMap.getOrDefault(productId, new ArrayList<>());
     }
+
+    @Override
+    public void removeAutoBid(Integer pid, Integer uid) {
+        List<AutoBidConfig> configs = autoBidMap.get(pid);
+
+        if (configs != null) {
+            synchronized (configs) {
+                configs.removeIf(config -> config.getUserId().equals(uid));
+            }
+        }
+    }
 }

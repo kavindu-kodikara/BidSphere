@@ -13,7 +13,7 @@ checkbox.addEventListener('change', function() {
     if (checkbox.checked) {
         startAutoBid();
     } else {
-        alert("unChecked");
+        endAutoBid();
     }
 });
 
@@ -171,6 +171,9 @@ function startWebSocket() {
 
         if(isAutoBid){
             if(data.price >= maxBidAmount){
+
+                endAutoBid();
+
                 Swal.fire({
                     icon: "info",
                     title: "AutoBid Ended!",
@@ -180,6 +183,7 @@ function startWebSocket() {
                 isAutoBid = false;
                 maxBidAmount = "";
                 checkbox.checked = false;
+
 
             }
         }else{
@@ -363,6 +367,28 @@ async function startAutoBid(){
                 text: data.msg+"!",
             });
         }
+    }
+}
+
+async function endAutoBid(){
+    const urlParams = new URLSearchParams(window.location.search);
+
+    const reqData = {
+        pid : urlParams.get('id'),
+    }
+
+    const response = await fetch("http://localhost:8080/autoBidEnd", {
+        method: "POST",
+        body: JSON.stringify(reqData),
+        headers: {
+            "Content-Type": "application/json",
+        }
+    });
+
+    if(response.ok) {
+        const data = await response.json();
+        console.log(data);
+
     }
 }
 

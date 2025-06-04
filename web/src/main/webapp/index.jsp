@@ -283,32 +283,6 @@
 <!-- Bootstrap JS Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Countdown Timer Script -->
-<script>
-    // Simple countdown timer for demonstration
-    function updateCountdowns() {
-        const countdownElements = document.querySelectorAll('.countdown');
-        const now = new Date();
 
-        countdownElements.forEach(element => {
-            const endDate = new Date(element.getAttribute('data-end'));
-            const diff = endDate - now;
-
-            if (diff <= 0) {
-                element.textContent = 'Auction ended';
-                return;
-            }
-
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-
-            element.textContent = `${days}d ${hours}h ${minutes}m`;
-        });
-    }
-
-    // Update countdowns every minute
-    updateCountdowns();
-    setInterval(updateCountdowns, 60000);
-</script>
 </body>
 </html>

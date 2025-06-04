@@ -14,6 +14,7 @@ public interface DataStoreService {
     Map<Integer, Product> getProductMap();
     Integer getUserId(String email,String password);
     void updateProductMap(Product product);
-     void registerAutoBid(AutoBidConfig config);
-     List<AutoBidConfig> getAutoBiddersForProduct(int productId);
+    void registerAutoBid(AutoBidConfig config);
+    List<AutoBidConfig> getAutoBiddersForProduct(int productId);
+    void removeAutoBid(Integer pid, Integer uid);
 }
