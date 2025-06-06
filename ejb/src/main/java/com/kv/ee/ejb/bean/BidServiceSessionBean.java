@@ -4,6 +4,7 @@ import com.kv.ee.core.modle.Bid;
 import com.kv.ee.core.modle.Product;
 import com.kv.ee.core.remote.BidService;
 import com.kv.ee.core.remote.DataStoreService;
+import com.kv.ee.core.remote.ValidateService;
 import jakarta.annotation.Resource;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
@@ -23,6 +24,9 @@ public class BidServiceSessionBean implements BidService {
     @EJB
     private DataStoreService dataStoreService;
 
+    @EJB
+    private ValidateService validateService;
+
     @Resource(lookup = "jms/__defaultConnectionFactory")
     private ConnectionFactory connectionFactory;
 
@@ -31,7 +35,7 @@ public class BidServiceSessionBean implements BidService {
 
     @Override
     public boolean placeBid(Integer productId, Integer userId, double bidAmount) {
-
+        boolean success = false;
         try (JMSContext context = connectionFactory.createContext()) {
 
             Bid bid = new Bid();
@@ -40,21 +44,29 @@ public class BidServiceSessionBean implements BidService {
             bid.setPrice(bidAmount);
             bid.setUser(dataStoreService.getUserMap().get(userId));
 
-            JMSProducer producer = context.createProducer();
-            producer.send(topic, bid);
+            if(validateService.validateBid(bid)){
+                JMSProducer producer = context.createProducer();
+                producer.send(topic, bid);
 
-            Product product = dataStoreService.getProductMap().get(productId);
-            ArrayList<Bid> bidHistoryList = product.getBidHistory();
+                Product product = dataStoreService.getProductMap().get(productId);
+                ArrayList<Bid> bidHistoryList = product.getBidHistory();
 
-            bidHistoryList.add(bid);
-            product.setBidHistory(bidHistoryList);
+                bidHistoryList.add(bid);
+                product.setBidHistory(bidHistoryList);
 
-            dataStoreService.updateProductMap(product);
+                dataStoreService.updateProductMap(product);
 
-            System.out.println("Sent bid " + String.valueOf(bidAmount));
+                System.out.println("Sent bid " + String.valueOf(bidAmount));
+                success = true;
+
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        return false;
+        return success;
     }
 
 

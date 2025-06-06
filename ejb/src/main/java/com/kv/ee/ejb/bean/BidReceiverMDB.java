@@ -3,9 +3,9 @@ package com.kv.ee.ejb.bean;
 import com.kv.ee.core.modle.AutoBidConfig;
 import com.kv.ee.core.modle.Bid;
 import com.kv.ee.core.modle.ProductBidEndpoint;
-import com.kv.ee.core.modle.Validate;
 import com.kv.ee.core.remote.BidService;
 import com.kv.ee.core.remote.DataStoreService;
+import com.kv.ee.core.remote.ValidateService;
 import jakarta.ejb.ActivationConfigProperty;
 import jakarta.ejb.EJB;
 import jakarta.ejb.MessageDriven;
@@ -33,6 +33,9 @@ public class BidReceiverMDB implements MessageListener {
     @EJB
     BidService bidService;
 
+    @EJB
+    ValidateService validateService;
+
     @Override
     public void onMessage(Message message) {
 
@@ -48,7 +51,7 @@ public class BidReceiverMDB implements MessageListener {
                 // Evaluate auto-bid for this product
                 List<AutoBidConfig> autoBidders = dataStoreService.getAutoBiddersForProduct(bid.getProductId());
 
-                for (AutoBidConfig config : Validate.sortBidConfigs(autoBidders)) {
+                for (AutoBidConfig config : validateService.sortBidConfigs(autoBidders)) {
 
                     if (bid.getUser().getId() == config.getUserId()) continue;
 

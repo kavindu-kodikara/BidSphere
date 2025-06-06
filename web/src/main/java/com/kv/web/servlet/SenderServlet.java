@@ -35,8 +35,8 @@ public class SenderServlet extends HttpServlet {
         if(uid == null) {
             msg = "Please Login First";
         } else{
-            bidService.placeBid(reqObject.get("pid").getAsInt(),uid,reqObject.get("amount").getAsDouble());
-            isSuccess = true;
+
+            isSuccess = bidService.placeBid(reqObject.get("pid").getAsInt(),uid,reqObject.get("amount").getAsDouble());
 
         }
 
