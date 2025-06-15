@@ -46,7 +46,7 @@ The application is structured as a **Java EE EAR** project with three modules:
 
 > *Click the image below to watch the full walkthrough video.*
 
-[![Auction System Tutorial](images/tutorial-thumbnail.png)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
+[![Auction System Tutorial](images/tutorial-thumbnail.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
 
 > You can also view sample UI screens in the [`/images`](./images) folder of this repo.
 
