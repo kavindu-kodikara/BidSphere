@@ -1,4 +1,4 @@
-# Distributed Online Auction System (Java EE + JMS)
+# Distributed Online Auction System BidSphere (Java EE + JMS)
 
 ## 🎯 Project Overview
 This project is a **Java EE-based Distributed Online Auction System** built using **Enterprise JavaBeans (EJB)** and **Java Message Service (JMS)**. It was developed as part of my academic journey to explore enterprise application architecture, asynchronous communication, and real-time system design.
@@ -46,8 +46,28 @@ The application is structured as a **Java EE EAR** project with three modules:
 
 > *Click the image below to watch the full walkthrough video.*
 
-[![Auction System Tutorial](images/tutorial-thumbnail.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
+[![Auction System Tutorial](images/tutorial-thumbnail.jpg)](https://youtu.be/52rSvAdtjSE?si=1OrrlGGUaPhZpOsA)
+</br></br></br></br></br>
+> You can also view sample UI screens.
 
-> You can also view sample UI screens in the [`/images`](./images) folder of this repo.
+</br>
+
+![Home](images/home.png)
+
+</br>
+
+</br>
+
+![Bid](images/screencapture-localhost-8080-product-jsp-2025-06-15-21_51_31.png)
+
+</br>
 
 ---
+
+## Disclaimer
+
+**This project is part of my professional portfolio. You’re welcome to reference it, but please credit me if you reuse or adapt any part of it.**
+
+## License
+
+This project is licensed under the [MIT License](LICENSE.md).
